@@ -15,11 +15,10 @@ class WeatherMain extends Component {
 	componentDidMount() {
 		axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${this.state.defaultCity}&units=metric&appid=2ec7f7b5fab44885766bbe4fc05fde4f`)
 			.then(response => {
-				this.setState ({
+				this.setState({
 					weather: response.data
-				})	
-			}
-		)
+				})
+			})
 	}
 
 	submitHandler = (e) => {
