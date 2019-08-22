@@ -1,7 +1,5 @@
 import React from 'react';
 
-import './WeatherForm.css';
-
 const Form = ({ submitHandler }) => (
   <form className="weather__form" onSubmit={(e) => { submitHandler(e); }}>
     <input

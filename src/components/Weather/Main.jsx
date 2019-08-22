@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Form from '../WeatherForm/WeatherForm';
-import WeatherInfo from '../WeatherInfo/WeatherInfo';
-
-import './WeatherMain.css';
+import Form from './Form';
+import WeatherInfo from './Info';
 
 class WeatherMain extends Component {
   state = {
