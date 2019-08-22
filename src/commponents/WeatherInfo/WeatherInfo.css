@@ -1,0 +1,43 @@
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.info__row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.info__row {
+  margin-bottom: 10px;
+}
+
+.info__row:last-child {
+  margin-bottom: 0;
+}
+
+.info__name {
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 700;
+
+  margin-right: 50px;
+  min-width: 130px;
+}
+
+.info__value {
+  font-size: 20px;
+}
+
+.info__show {
+  width: 150px;
+  height: 150px;
+}
+
+.info__show img {
+  width: 100%;
+}
+
