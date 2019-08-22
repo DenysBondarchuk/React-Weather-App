@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Form from './Form';
-import WeatherInfo from './Info';
+import Info from './Info';
 
-class WeatherMain extends Component {
+class Main extends Component {
   state = {
     weather: null,
     defaultCity: 'Kyiv',
@@ -42,11 +42,11 @@ class WeatherMain extends Component {
         />
         {
           this.state.weather
-          && <WeatherInfo data={this.state.weather} />
+          && <Info data={this.state.weather} />
         }
       </div>
     );
   }
 }
 
-export default WeatherMain;
+export default Main;
