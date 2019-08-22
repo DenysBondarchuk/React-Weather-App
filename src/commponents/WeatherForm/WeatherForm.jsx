@@ -17,7 +17,7 @@ const Form = ({ submitHandler }) => {
         className="weather__btn"
       >
         Find
-       </button>
+      </button>
     </form>
   )
 }

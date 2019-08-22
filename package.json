@@ -15,7 +15,26 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "airbnb"
+    ],
+    "rules": {
+      "linebreak-style": [0, "error", "windows"],
+      "jsx-a11y/no-autofocus": 0,
+      "implicit-arrow-linebreak": 0,
+      "react/destructuring-assignment": 0,
+      "react/prop-types": 0,
+      "operator-linebreak": [
+        "error",
+        "before",
+        {
+          "overrides": {
+            "=": "ignore"
+          }
+        }
+      ]
+    }
   },
   "browserslist": {
     "production": [
@@ -28,5 +47,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^6.2.1",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-react-app": "^5.0.1",
+    "eslint-plugin-flowtype": "^4.2.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3"
   }
 }
