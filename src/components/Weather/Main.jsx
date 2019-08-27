@@ -6,16 +6,16 @@ import Info from './Info';
 class Main extends Component {
   state = {
     weather: null,
-    defaultCity: 'Kyiv',
   };
 
   componentDidMount() {
-    axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${this.state.defaultCity}&units=metric&appid=2ec7f7b5fab44885766bbe4fc05fde4f`)
-      .then((response) => {
-        this.setState({
-          weather: response.data,
-        });
-      });
+    this.getCityData()
+      .then(({ data: weather }) => this.setState({ weather }));
+  }
+
+  getCityData = (defaultCity = 'Kyiv') => {
+    const url = `https://api.openweathermap.org/data/2.5/weather?units=metric&appid=2ec7f7b5fab44885766bbe4fc05fde4f&q=${defaultCity}`;
+    return axios.get(url);
   }
 
   submitHandler = (e) => {
@@ -23,27 +23,19 @@ class Main extends Component {
 
     const city = (new FormData(e.target)).get('city');
 
-    axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=2ec7f7b5fab44885766bbe4fc05fde4f`)
-      .then((response) => {
-        this.setState({ weather: response.data });
-      })
-      .catch(() => {
-        // alert('The city is not found');
-      });
+    this.getCityData(city)
+      .then(({ data: weather }) => this.setState({ weather }))
+      .catch(() => {});
 
     e.target.reset();
   };
 
   render() {
+    const { weather } = this.state;
     return (
       <div className="weather">
-        <Form
-          submitHandler={this.submitHandler}
-        />
-        {
-          this.state.weather
-          && <Info data={this.state.weather} />
-        }
+        <Form submitHandler={this.submitHandler} />
+        { weather && <Info data={weather} />}
       </div>
     );
   }

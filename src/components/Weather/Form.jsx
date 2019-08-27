@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Form = ({ submitHandler }) => (
-  <form className="weather__form" onSubmit={(e) => { submitHandler(e); }}>
+  <form className="weather__form" onSubmit={submitHandler}>
     <input
       type="text"
       name="city"

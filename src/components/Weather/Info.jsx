@@ -1,16 +1,22 @@
 import React from 'react';
+// import InfoRow from './InfoRow';
 
 const weatherInfo = ({ data }) => {
   const {
     name,
-    main,
     weather,
-    wind,
-  } = { ...data };
+    wind: { speed },
+    main: {
+      temp,
+      humidity,
+    },
+  } = data;
 
   return (
     <div className="info">
       <div className="info__description">
+
+        {/* <InfoRow data={name} /> */}
 
         <div className="info__row">
           <p className="info__name">City</p>
@@ -19,21 +25,21 @@ const weatherInfo = ({ data }) => {
         <div className="info__row">
           <p className="info__name">Temperature</p>
           <p className="info__value info__value-temperature">
-            {main.temp}
+            {temp}
             ℃
           </p>
         </div>
         <div className="info__row">
           <p className="info__name">Humidity</p>
           <p className="info__value info__value-humidity">
-            {main.humidity}
+            {humidity}
             %
           </p>
         </div>
         <div className="info__row">
           <p className="info__name">Wind</p>
           <p className="info__value info__value-wind">
-            {wind.speed}
+            {speed}
             m/s
           </p>
         </div>
