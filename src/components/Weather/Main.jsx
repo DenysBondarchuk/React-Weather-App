@@ -13,8 +13,8 @@ class Main extends Component {
       .then(({ data: weather }) => this.setState({ weather }));
   }
 
-  getCityData = (defaultCity = 'Kyiv') => {
-    const url = `https://api.openweathermap.org/data/2.5/weather?units=metric&appid=2ec7f7b5fab44885766bbe4fc05fde4f&q=${defaultCity}`;
+  getCityData = (сity = 'Kyiv') => {
+    const url = `https://api.openweathermap.org/data/2.5/weather?units=metric&appid=2ec7f7b5fab44885766bbe4fc05fde4f&q=${сity}`;
     return axios.get(url);
   }
 

@@ -1,12 +1,10 @@
-// import React from 'react';
+import React from 'react';
 
-// const InfoRow = ({ data }) => {
-//   return (
-//     <div className="info__row">
-//       <p className="info__name">City</p>
-//       <p className="info__value info__value-city">{data}</p>
-//     </div>
-//   );
-// };
+const InfoRow = ({ className, heading, children }) => (
+  <div className="info__row">
+    <p className="info__name">{ heading }</p>
+    <p className={`info__value ${className}`}>{ children }</p>
+  </div>
+);
 
-// export default InfoRow;
+export default InfoRow;
