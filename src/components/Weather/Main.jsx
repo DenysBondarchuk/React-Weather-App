@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import _debounce from 'lodash/debounce';
+import { debounce as _debounce } from 'lodash';
 
 import Info from './Info';
-import NotFound from './NotFound';
-import InfoPreloader from './InfoPreloader';
 
 class Main extends Component {
   state = {
@@ -13,6 +11,8 @@ class Main extends Component {
     loading: false,
     weather: null,
   };
+
+  DebounceSubmitHandler = _debounce(this.submitHandler.bind(this), 1000, false);
 
   componentDidMount() {
     this.getCityData()
@@ -23,44 +23,47 @@ class Main extends Component {
     this.setState({ inputValue: e.target.value, loading: true });
   }
 
-  getCityData = async (сity = 'Kyiv') => {
-    const url = `https://api.openweathermap.org/data/2.5/weather?units=metric&appid=2ec7f7b5fab44885766bbe4fc05fde4f&q=${сity}`;
+  getCityData = (param) => {
+    const city = param || 'Kyiv';
+    const url = `https://api.openweathermap.org/data/2.5/weather?units=metric&appid=2ec7f7b5fab44885766bbe4fc05fde4f&q=${city}`;
     return axios.get(url);
   }
-
-  submitHandler = () => {
-    const city = this.state.inputValue;
-    this.getCityData(city)
-      .then(({ data: weather }) => this.setState({ weather, error: true }))
-      .catch(() => { this.setState({ error: false }); })
-      .finally(() => { this.setState({ loading: false }); });
-  };
-
-  DebounceSubmitHandler = _debounce(this.submitHandler, 1000, false);
 
   handleChange = (e) => {
     this.inputChange(e);
     this.DebounceSubmitHandler();
   }
 
+  submitHandler() {
+    const { inputValue: city } = this.state;
+    this.getCityData(city)
+      .then(({ data: weather }) => this.setState({ weather, error: true }))
+      .catch(() => { this.setState({ error: false }); })
+      .finally(() => { this.setState({ loading: false }); });
+  }
+
   render() {
-    const { weather } = this.state;
-    const isFinfCity = this.state.error;
-    const isLoading = this.state.loading;
-    const InfoIfCityFind = isFinfCity ? weather && <Info data={weather} /> : <NotFound />;
+    const {
+      weather,
+      error: ifFindCity,
+      loading: isLoading,
+    } = this.state;
     return (
       <div className="weather">
-        <input
-          type="text"
-          name="city"
-          placeholder="Write the city"
-          autoComplete="off"
-          required
-          className="weather__input"
-          value={this.state.inputValue}
-          onChange={this.handleChange}
-        />
-        { isLoading ? <InfoPreloader /> : InfoIfCityFind }
+        <div className="weather__form">
+          <input
+            type="text"
+            name="city"
+            placeholder="Write the city"
+            autoComplete="off"
+            required
+            className="weather__input"
+            value={this.state.inputValue}
+            onChange={this.handleChange}
+          />
+          { isLoading && <div className="weather__preloader" /> }
+        </div>
+        { ifFindCity ? weather && <Info data={weather} /> : <p className="weather__notfound">The City not found</p> }
       </div>
     );
   }

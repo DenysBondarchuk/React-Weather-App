@@ -92,8 +92,7 @@ code {
   border-radius: 5px;
   
   width: 100%;
-  padding: 5px;
-  margin-right: 20px;
+  padding: 15px 50px 15px 15px;
 }
 
 .weather__btn {
@@ -165,26 +164,26 @@ code {
   padding: 20px;
 }
 
-.weather__preloaderarea {
-  width: 100%;
-  margin-top: 20px;
+.weather__form {
+  position: relative;
 }
 
 .weather__preloader {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   border: 5px solid #ccc;
-  position: relative;
-  margin: 0 auto;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
 }
 
 .weather__preloader::before {
   content:'';
-  width: 40px;
-  height: 40px;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   border: 5px solid transparent;
   border-top-color: grey;
