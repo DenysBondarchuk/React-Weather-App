@@ -1,4 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+const propTypes = {
+  submitHandler: PropTypes.func.isRequired,
+};
 
 const Form = ({ submitHandler }) => (
   <form className="weather__form" onSubmit={submitHandler}>
@@ -18,5 +23,6 @@ const Form = ({ submitHandler }) => (
   </form>
 );
 
+Form.propTypes = propTypes;
 
 export default Form;

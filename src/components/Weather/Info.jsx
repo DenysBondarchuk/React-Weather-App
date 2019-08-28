@@ -1,7 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import InfoRow from './InfoRow';
 
-const weatherInfo = ({ data }) => {
+const propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string,
+    weather: PropTypes.array,
+    wind: PropTypes.shape({
+      speed: PropTypes.number,
+    }),
+    main: PropTypes.shape({
+      temp: PropTypes.number,
+      humidity: PropTypes.number,
+    }),
+  }).isRequired,
+};
+
+const defaultProps = {};
+
+const Info = ({ data }) => {
   const {
     name,
     weather,
@@ -12,12 +30,10 @@ const weatherInfo = ({ data }) => {
     },
   } = data;
 
-  const getDescription = (item) => (
-    <span
-      key={item.id}
-    >
-      {item.description}
-    </span>
+  const getDescription = () => (
+    weather.map(({ id, description }) => (
+      <span key={id}>{ description }</span>
+    ))
   );
 
   return (
@@ -40,7 +56,7 @@ const weatherInfo = ({ data }) => {
           m/s
         </InfoRow>
         <InfoRow className="info__value-description" heading="Description">
-          {weather.map(getDescription).join(', ')}
+          { getDescription() }
         </InfoRow>
       </div>
       <div className="info__show">
@@ -50,4 +66,7 @@ const weatherInfo = ({ data }) => {
   );
 };
 
-export default weatherInfo;
+Info.propTypes = propTypes;
+Info.defaultProps = defaultProps;
+
+export default Info;
