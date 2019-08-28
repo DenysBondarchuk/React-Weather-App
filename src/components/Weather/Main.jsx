@@ -3,10 +3,14 @@ import axios from 'axios';
 import _debounce from 'lodash/debounce';
 
 import Info from './Info';
+import NotFound from './NotFound';
+import InfoPreloader from './InfoPreloader';
 
 class Main extends Component {
   state = {
     inputValue: '',
+    error: true,
+    loading: false,
     weather: null,
   };
 
@@ -16,26 +20,34 @@ class Main extends Component {
   }
 
   inputChange = (e) => {
-    this.setState({ inputValue: e.target.value });
+    this.setState({ inputValue: e.target.value, loading: true });
   }
 
-  getCityData = (сity = 'Kyiv') => {
+  getCityData = async (сity = 'Kyiv') => {
     const url = `https://api.openweathermap.org/data/2.5/weather?units=metric&appid=2ec7f7b5fab44885766bbe4fc05fde4f&q=${сity}`;
     return axios.get(url);
   }
 
-  submitHandler = _debounce((e) => {
-
+  submitHandler = () => {
     const city = this.state.inputValue;
-
     this.getCityData(city)
-      .then(({ data: weather }) => this.setState({ weather }))
-      .catch(() => { });
+      .then(({ data: weather }) => this.setState({ weather, error: true }))
+      .catch(() => { this.setState({ error: false }); })
+      .finally(() => { this.setState({ loading: false }); });
+  };
 
-  }, 1000);
+  DebounceSubmitHandler = _debounce(this.submitHandler, 1000, false);
+
+  handleChange = (e) => {
+    this.inputChange(e);
+    this.DebounceSubmitHandler();
+  }
 
   render() {
     const { weather } = this.state;
+    const isFinfCity = this.state.error;
+    const isLoading = this.state.loading;
+    const InfoIfCityFind = isFinfCity ? weather && <Info data={weather} /> : <NotFound />;
     return (
       <div className="weather">
         <input
@@ -46,9 +58,9 @@ class Main extends Component {
           required
           className="weather__input"
           value={this.state.inputValue}
-          onChange={(e) => { this.inputChange(e); this.submitHandler(); }}
+          onChange={this.handleChange}
         />
-        {weather && <Info data={weather} />}
+        { isLoading ? <InfoPreloader /> : InfoIfCityFind }
       </div>
     );
   }

@@ -154,3 +154,54 @@ code {
   width: 100%;
 }
 /* WeatherUnfo end */
+
+/* Weather NotFound start */
+.weather__notfound {
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 500;
+  text-align: center;
+
+  padding: 20px;
+}
+
+.weather__preloaderarea {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.weather__preloader {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 5px solid #ccc;
+  position: relative;
+  margin: 0 auto;
+}
+
+.weather__preloader::before {
+  content:'';
+  width: 40px;
+  height: 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 5px solid transparent;
+  border-top-color: grey;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: 2s linear preloader;
+}
+
+@keyframes preloader {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Weather NotFound end */
