@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { debounce as _debounce } from 'lodash';
 
-import Info from './Info';
+import InfoContainer from './Info/InfoContainer';
+import delaySearching from '../constants';
 
 class Main extends Component {
   state = {
@@ -12,7 +13,7 @@ class Main extends Component {
     weather: null,
   };
 
-  DebounceSubmitHandler = _debounce(this.submitHandler.bind(this), 1000, false);
+  DebounceSubmitHandler = _debounce(this.submitHandler.bind(this), delaySearching, false);
 
   componentDidMount() {
     this.getCityData()
@@ -36,6 +37,7 @@ class Main extends Component {
 
   submitHandler() {
     const { inputValue: city } = this.state;
+
     this.getCityData(city)
       .then(({ data: weather }) => this.setState({ weather, error: true }))
       .catch(() => { this.setState({ error: false }); })
@@ -48,6 +50,7 @@ class Main extends Component {
       error: ifFindCity,
       loading: isLoading,
     } = this.state;
+
     return (
       <div className="weather">
         <div className="weather__form">
@@ -63,7 +66,7 @@ class Main extends Component {
           />
           { isLoading && <div className="weather__preloader" /> }
         </div>
-        { ifFindCity ? weather && <Info data={weather} /> : <p className="weather__notfound">The City not found</p> }
+        { ifFindCity ? weather && <InfoContainer data={weather} /> : <p className="weather__notfound">The City not found</p> }
       </div>
     );
   }

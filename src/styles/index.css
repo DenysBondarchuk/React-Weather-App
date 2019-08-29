@@ -191,7 +191,7 @@ code {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  animation: 2s linear preloader;
+  animation: 2s preloader linear;
 }
 
 @keyframes preloader {
@@ -202,5 +202,3 @@ code {
     transform: translate(-50%, -50%) rotate(360deg);
   }
 }
-
-/* Weather NotFound end */

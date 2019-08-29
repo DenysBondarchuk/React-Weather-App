@@ -19,7 +19,7 @@ const propTypes = {
 
 const defaultProps = {};
 
-const Info = ({ data }) => {
+const InfoContainer = ({ data }) => {
   const {
     name,
     weather,
@@ -30,6 +30,8 @@ const Info = ({ data }) => {
     },
   } = data;
 
+  const { icon, main } = weather[0];
+
   const getDescription = () => (
     weather.map(({ id, description }) => (
       <span key={id}>{ description }</span>
@@ -39,7 +41,6 @@ const Info = ({ data }) => {
   return (
     <div className="info">
       <div className="info__description">
-
         <InfoRow className="info__value-city" heading="City">
           {name}
         </InfoRow>
@@ -60,13 +61,13 @@ const Info = ({ data }) => {
         </InfoRow>
       </div>
       <div className="info__show">
-        <img src={`https://openweathermap.org/img/w/${weather[0].icon}.png`} alt="" />
+        <img src={`https://openweathermap.org/img/w/${icon}.png`} alt={main} title={main} />
       </div>
     </div>
   );
 };
 
-Info.propTypes = propTypes;
-Info.defaultProps = defaultProps;
+InfoContainer.propTypes = propTypes;
+InfoContainer.defaultProps = defaultProps;
 
-export default Info;
+export default InfoContainer;
