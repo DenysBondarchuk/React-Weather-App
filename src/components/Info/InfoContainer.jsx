@@ -30,7 +30,7 @@ const InfoContainer = ({ data }) => {
     },
   } = data;
 
-  const { icon, main } = weather[0];
+  const [{ icon, main }] = weather;
 
   const getDescription = () => (
     weather.map(({ id, description }) => (
