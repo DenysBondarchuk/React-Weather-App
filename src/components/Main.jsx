@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { debounce as _debounce } from 'lodash';
-// import axios from '../_helpers/axios';
 
 import InfoContainer from './Info/InfoContainer';
 import delaySearching from '../constants/constants';
-
 
 class Main extends Component {
   state = {
